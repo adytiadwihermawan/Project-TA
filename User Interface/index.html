@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+
+  <title>Klasifikasi Ujaran Kebencian</title>
+
+
+
+  <!--slick slider stylesheet -->
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.9/slick.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.9/slick-theme.min.css">
+
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.css') }}" />
+
+  <!-- fonts style -->
+  <link href="https://fonts.googleapis.com/css?family=Dosis:500|Raleway:400,600,700&display=swap" rel="stylesheet">
+  <!-- Custom styles for this template -->
+  <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="{{ url_for('static', filename='css/responsive.css') }}" rel="stylesheet" />
+</head>
+
+<body>
+  <div class="hero_area">
+
+    <div class="main slick_main">
+      <div class="slider slider-for main_img-container">
+        <div class="main-img-box b1">
+
+        </div>
+      </div>
+    </div>
+    <!-- slider section -->
+    <section class=" slider_section position-relative">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-4">
+          </div>
+          <div class="col-md-8 px-0">
+            <div class="card">
+              <div class="card-body">
+                <p style="color: #c286d0; font-family: Poppins-Bold; text-align: center; font-size: 25px;">Klasifikasi Ujaran Kebencian</p>
+                <form action="{{ url_for('predict')}}" method="post">
+                  <div class="wrap-input100 validate-input">
+                    <textarea class="input100" rows="6" cols="50" name="kalimat" placeholder="Masukan kalimat anda"></textarea>
+                    <!-- <input class="input100" type="text" name="email" placeholder="Email"> -->
+                    <span class="focus-input100"></span>
+                  </div>
+                  
+                  <div class="container-login100-form-btn">
+                    <button class="login100-form-btn">
+                      Cek Kalimat
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+            
+            <div class="card">
+              <div class="card-body">
+              <p style="color: #c286d0; font-family: Poppins-Bold; text-align: center; font-size: 25px;">Hasil Klasifikasi</p>
+              <div class="wrap-input100 validate-input">
+                <textarea class="input100" rows="2" cols="50" name="kalimat">Inputan Kalimat : {{kalimat}}</textarea>
+                <!-- <input class="input100" type="text" name="email" placeholder="Email"> -->
+                <span class="focus-input100"></span>
+                {{result}}
+              </div>
+              </div>
+            </div>
+        </div>
+      </div>
+    </section>
+    <!-- end slider section -->
+  </div>
+
+  </section>
+
+
+
+  <!-- end info_section -->
+
+  
+  <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-3.4.1.min.js') }}"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.9/slick.min.js"></script>
+  <!-- end google map js -->
+
+
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,65 @@
+import pandas as pd
+import time
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
+from selenium.common import exceptions 
+from selenium.webdriver.support.wait import WebDriverWait
+
+=======================================================
+
+driver = webdriver.Chrome('D:\chromedriver_win32\chromedriver.exe')
+
+url='https://www.instagram.com/accounts/login/'
+driver.get(url)
+usernameInput='kze.adh'
+passwordInput='bts130613'
+username=WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, "//input[@name='username']"))) .send_keys(usernameInput)
+password=WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, "//input[@name='password']"))).send_keys(passwordInput)
+WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, "//input[@name='password']"))).send_keys(Keys.ENTER)
+time.sleep(15)
+driver.get('https://www.instagram.com/tv/CapCatxrn_9/?igshid=YmMyMTA2M2Y=')
+
+===========================================================
+
+# Membuka seluruh data di kolom komentar
+
+i = 0
+while i < 180: # Menarget seberapa banyak tombol "load more comments" akan di-klik.
+    load_more_comment= WebDriverWait(driver,20).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="mount_0_0_h5"]/div/div/div/div[1]/div/div/div/div[1]/div[1]/div[2]/section/main/div[1]/div[1]/article/div/div[2]/div/div[2]/div[1]/ul/li/div/button')))
+    try:
+        load_more_comment.click()
+        time.sleep(3)
+    except exceptions.StaleElementReferenceException as e:
+        print(str(e))
+        pass
+    finally:
+        i += 1
+
+==========================================================
+
+
+time.sleep(10)
+
+# Menentukan indeks data
+user_names = []
+user_comments = []
+
+# Meminta webdriver untuk menemukan elemen kolom komentar
+comment = driver.find_elements(By.CLASS_NAME, '_a9zo')
+
+# Mengambil data username dan komentarnya
+for c in comment:
+    container = c.find_element(By.CLASS_NAME, "_a9zr")
+    name = container.find_element(By.CLASS_NAME, "_a9zc").text
+    content = container.find_elements(By.TAG_NAME,'span')[1].text
+    content = content.replace('\n', ' ').strip().rstrip()
+    user_names.append(name)
+    user_comments.append(content)
+
+============================================================
+
+# Memasukkan data ke file CSV    
+comments_df = pd.DataFrame({"username": user_names, "comment": user_comments})
+comments_df.to_csv("komentar_instagram.csv", index=False)
